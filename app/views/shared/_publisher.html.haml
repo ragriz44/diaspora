@@ -9,15 +9,7 @@
     $(".public_icon").tipsy({trigger: 'hover', gravity: 'n'});
   });
 
-#publisher{:class => ((aspect == :profile)? 'mention_popup' : nil )}
-
-  #click_to_share
-    -unless aspect == :profile
-      = image_tag 'icons/doc_edit.png'
-      %span= t('.whats_on_your_mind')
-
-      = t('aspects', :count => aspect_ids.length)
-
+#publisher
   .content_creation
     = form_for(StatusMessage.new, :remote => true, :html => {"data-type" => "json"}) do |status|
       = status.error_messages

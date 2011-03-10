@@ -6,21 +6,16 @@
 - content_for :head do
   = include_javascripts :home
 
-.span-15.append-2
-  #aspect_stream_container
-    = render 'aspect_stream',
-      :aspect => @aspect,
-      :aspect_ids => @aspect_ids,
-      :posts => @posts,
-      :fakes => @fakes
+.span-4.append-1
+  = render 'aspects/aspect_listings', :aspects => @aspects, :contacts => @contacts
 
-.span-7.last
-  #home_user_badge
-    = owner_image_link
-    %h3{:style => "position:relative;"}
-      = current_user.name
-      .description
-        = link_to current_user.diaspora_handle, person_path(current_user.person)
+  %br
+
+  #left_search
+    = form_tag(people_path, :method => 'get', :id => "global_search_form") do
+      = text_field_tag 'q', nil, :placeholder => 'People', :type => 'search', :results => 5
+
+  %br
 
   - if @notification_count > 0 || @request_count > 0
     #new_requests
@@ -28,15 +23,16 @@
         %h4
           = new_request_link(@request_count)
 
-  - if @invites > 0
-    .section.invite_friends
-      %h4= t('shared.invitations.invite_your_friends')
-      = render "shared/invitations", :invites => @invites
+  /.section
+  /  %h5
+  /    = t('shared.invitations.invite_your_friends')
+  /  = render "shared/invitations", :invites => @invites
 
-  #aspect_listings.section
-    = render 'aspects/aspect_listings', :aspects => @aspects
 
-  - if @invites <= 0
-    .section.invite_friends
-      %h4= t('shared.invitations.invite_your_friends')
-      = render "shared/invitations", :invites => @invites
+.span-13.last
+  #aspect_stream_container
+    = render 'aspect_stream',
+      :aspect => @aspect,
+      :aspect_ids => @aspect_ids,
+      :posts => @posts,
+      :fakes => @fakes
