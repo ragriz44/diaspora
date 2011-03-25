@@ -36,7 +36,7 @@ Diaspora::Application.routes.draw do
     resources :status_messages
     resources :photos
   end
-  match '/people/:id/contacts' => 'people#contacts'
+  match '/people/:id/contacts' => 'people#contacts', :as => :contact_contacts
 
   match '/people/by_handle' => 'people#retrieve_remote', :as => 'person_by_handle'
   match '/auth/:provider/callback' => 'services#create'
