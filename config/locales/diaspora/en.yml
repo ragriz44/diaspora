@@ -385,6 +385,8 @@ en:
       edit_membership: "edit aspect membership"
     add_contact_small:
       add_contact_from_tag: "add contact from tag"
+    contacts:
+      contacts: "%{name}'s contacts:"
 
   photos:
     show:

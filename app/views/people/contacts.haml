@@ -52,7 +52,8 @@
               = link_to t('.edit'), edit_profile_path
 
   %hr
-
+  %h4
+    = t('.contacts', :name => @person.name)
   #people_stream.stream
     - for hash in @hashes
       = render :partial => 'people/person', :locals => hash
