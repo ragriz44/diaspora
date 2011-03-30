@@ -7,7 +7,10 @@ module Job
     @queue = :http_service
 
     def self.perform_delegate(sender_public_url)
-      OPub::Publisher.new(sender_public_url, [AppConfig[:pubsub_server]]).ping_hubs
+      #OPub::Publisher.new(sender_public_url, [AppConfig[:pubsub_server]]).ping_hubs
+      require File.join(Rails.root, 'lib/pubsubhubbub')
+      Pubsubhubbub.new(AppConfig[:pubsub_server]).publish(sender_public_url)
+      
     end
   end
 end
