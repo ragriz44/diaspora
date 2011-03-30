@@ -54,7 +54,8 @@ gem 'typhoeus'
 gem 'cloudfiles', '1.4.10', :require => false
 
 #ostatus
-gem 'opub', :git => 'https://github.com/hotsh/opub.git'
+gem 'require_relative'
+gem 'opub', :git => 'git://github.com/diaspora/opub.git'
 
 #Queue
 gem 'resque', '1.10.0'

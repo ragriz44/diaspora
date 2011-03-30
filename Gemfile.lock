@@ -15,6 +15,12 @@ GIT
       rails (>= 3.0)
 
 GIT
+  remote: git://github.com/diaspora/opub.git
+  revision: 99cbe62f0d3641c23a4c3cb5807226708ef93f38
+  specs:
+    opub (0.0.1)
+
+GIT
   remote: git://github.com/iain/http_accept_language.git
   revision: 0b78aa7849fc90cf9e12586af162fa4c408a795d
   ref: 0b78aa7849fc90cf9e12
@@ -50,12 +56,6 @@ GIT
   specs:
     devise_invitable (0.3.5)
       devise (~> 1.1.0)
-
-GIT
-  remote: https://github.com/hotsh/opub.git
-  revision: bb1e9d9ed71bfcab3322c560e51f1b9523332e96
-  specs:
-    opub (0.0.1)
 
 PATH
   remote: vendor/gems/jasmine
@@ -323,6 +323,7 @@ GEM
     redis (2.1.1)
     redis-namespace (0.8.0)
       redis (< 3.0.0)
+    require_relative (0.0.1)
     resque (1.10.0)
       json (~> 1.4.6)
       redis-namespace (~> 0.8.0)
@@ -436,6 +437,7 @@ DEPENDENCIES
   opub!
   rails (= 3.0.3)
   rcov
+  require_relative
   resque (= 1.10.0)
   rest-client (= 1.6.1)
   roxml!
