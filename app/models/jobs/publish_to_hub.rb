@@ -7,9 +7,11 @@ module Job
     @queue = :http_service
 
     def self.perform_delegate(sender_public_url)
-      require File.join(Rails.root, 'lib/pubsubhubbub')
+      #require File.join(Rails.root, 'lib/pubsubhubbub')
       atom_url = sender_public_url + '.atom'
-      Pubsubhubbub.new(AppConfig[:pubsub_server]).publish(atom_url)
+      #Pubsubhubbub.new(AppConfig[:pubsub_server]).publish(atom_url)
+      pub = OPub::Publisher.new(atom_url, [AppConfig[:pubsub_server])
+      pub.ping_hubs
     end
   end
 end
