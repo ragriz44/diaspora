@@ -51,6 +51,12 @@ GIT
     devise_invitable (0.3.5)
       devise (~> 1.1.0)
 
+GIT
+  remote: https://github.com/hotsh/opub.git
+  revision: bb1e9d9ed71bfcab3322c560e51f1b9523332e96
+  specs:
+    opub (0.0.1)
+
 PATH
   remote: vendor/gems/jasmine
   specs:
@@ -427,6 +433,7 @@ DEPENDENCIES
   mysql2 (= 0.2.6)
   nokogiri (= 1.4.3.1)
   omniauth (= 0.1.6)
+  opub!
   rails (= 3.0.3)
   rcov
   resque (= 1.10.0)
