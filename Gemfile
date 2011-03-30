@@ -58,7 +58,7 @@ gem 'resque', '1.10.0'
 gem 'SystemTimer', '1.2.1' unless RUBY_VERSION.include? '1.9' || RUBY_PLATFORM =~ 'win32'
 
 #ostatus
-  gem 'opub', :git => 'git@github.com:diaspora/opub.git'
+  gem 'opub', :git => 'git://github.com/diaspora/opub.git'
 
 
 group :development do

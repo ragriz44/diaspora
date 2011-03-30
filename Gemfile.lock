@@ -15,6 +15,12 @@ GIT
       rails (>= 3.0)
 
 GIT
+  remote: git://github.com/diaspora/opub.git
+  revision: 9b16fc0c2703dd83f668d1c7cb97430221b18b55
+  specs:
+    opub (0.0.1)
+
+GIT
   remote: git://github.com/iain/http_accept_language.git
   revision: 0b78aa7849fc90cf9e12586af162fa4c408a795d
   ref: 0b78aa7849fc90cf9e12
@@ -50,12 +56,6 @@ GIT
   specs:
     devise_invitable (0.3.5)
       devise (~> 1.1.0)
-
-GIT
-  remote: git@github.com:diaspora/opub.git
-  revision: 9b16fc0c2703dd83f668d1c7cb97430221b18b55
-  specs:
-    opub (0.0.1)
 
 PATH
   remote: vendor/gems/jasmine
