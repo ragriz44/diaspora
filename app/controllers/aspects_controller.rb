@@ -11,10 +11,16 @@ class AspectsController < ApplicationController
   respond_to :js
 
   def index
+    vp_opts = {:type => 'StatusMessage', 
+               :order => session[:sort_order] + ' DESC', 
+               :page => params[:page]}
     if params[:a_ids]
       @aspects = current_user.aspects.where(:id => params[:a_ids])
+      @aspect_ids = @aspects.map { |a| a.id }
+      vp_opts.merge(:by_members_of => @aspect_ids)
     else
       @aspects = current_user.aspects
+      @aspect_ids = @aspects.map { |a| a.id }
     end
     @aspects = @aspects.includes(:contacts => {:person => :profile})
 
@@ -25,8 +31,8 @@ class AspectsController < ApplicationController
     end
 
     @selected_contacts = @aspects.map { |aspect| aspect.contacts }.flatten.uniq
-    @aspect_ids = @aspects.map { |a| a.id }
-    @posts = current_user.raw_visible_posts(:by_members_of => @aspect_ids, :type => 'StatusMessage', :order => session[:sort_order] + ' DESC', :page => params[:page]).includes(
+
+    @posts = current_user.raw_visible_posts(vp_opts).includes(
       :comments, :mentions, :likes, :dislikes).paginate(:page => params[:page], :per_page => 15, :order => session[:sort_order] + ' DESC')
     @fakes = PostsFake.new(@posts)
 

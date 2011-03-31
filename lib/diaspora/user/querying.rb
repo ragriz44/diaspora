@@ -20,19 +20,38 @@ module Diaspora
         opts[:order] = '`posts`.' + opts[:order]
         opts[:limit] = opts[:limit].to_i * opts[:page].to_i if opts[:page]
 
+        if aspect_ids = opts.delete(:by_members_of)
+          posts = visible_posts_from_aspects(aspect_ids, opts)
+        else
+          posts = all_visible_posts(opts)
+        end
+
+        posts.where(:type => opts[:type], :pending => false).select('DISTINCT `posts`.*')
+      end
+
+      def all_visible_posts opts = {}
+        p = Post.arel_table
+        pv = PostVisibility.arel_table
+        c = Contact.arel_table
+        Post.joins(:contacts).where(
+          p[:author_id].eq(self.person.id).or(
+            pv[:hidden].eq(false).and(c[:user_id].eq(self.id).and(c[:pending].eq(false)))
+          )
+        )
+      end
+
+      def visible_posts_from_aspects aspect_ids, opts = {}
         posts_from_others = Post.joins(:contacts).where( :post_visibilities => {:hidden => opts[:hidden]}, :contacts => {:user_id => self.id})
         posts_from_self = self.person.posts
 
-        if opts[:by_members_of]
-          posts_from_others = posts_from_others.joins(:contacts => :aspect_memberships).where(
-            :aspect_memberships => {:aspect_id => opts[:by_members_of]})
-          posts_from_self = posts_from_self.joins(:aspect_visibilities).where(:aspect_visibilities => {:aspect_id => opts[:by_members_of]})
-        end
+        posts_from_others = posts_from_others.joins(:contacts => :aspect_memberships).where(
+          :aspect_memberships => {:aspect_id => aspect_ids})
+        posts_from_self = posts_from_self.joins(:aspect_visibilities).where(:aspect_visibilities => {:aspect_id => aspect_ids})
 
         post_ids = Post.connection.execute(posts_from_others.select('posts.id').limit(opts[:limit]).order(opts[:order]).to_sql).map{|r| r.first}
         post_ids += Post.connection.execute(posts_from_self.select('posts.id').limit(opts[:limit]).order(opts[:order]).to_sql).map{|r| r.first}
 
-        Post.where(:id => post_ids, :pending => false, :type => opts[:type]).select('DISTINCT `posts`.*').limit(opts[:limit])
+        Post.where(:id => post_ids).limit(opts[:limit])
       end
 
       def visible_photos
