@@ -15,12 +15,3 @@ AVAILABLE_LANGUAGE_CODES.each do |c|
   end
 end
 
-# Workaround for https://rails.lighthouseapp.com/projects/8994/tickets/5329-using-i18nwith_locale-in-actionmailer-raises-systemstackerror
-module AbstractController
-  class I18nProxy
-    def initialize(i18n_config, lookup_context)
-      @i18n_config, @lookup_context = i18n_config, lookup_context
-      @i18n_config = @i18n_config.i18n_config if @i18n_config.respond_to?(:i18n_config)
-    end
-  end
-end

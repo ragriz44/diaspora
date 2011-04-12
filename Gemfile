@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'mysql2', '0.2.6'
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.6'
 gem 'foreigner', '0.9.1'
 
 gem 'bundler', '>= 1.0.0'
@@ -10,8 +10,8 @@ gem 'chef', '0.9.12', :require => false
 gem 'nokogiri', '1.4.3.1'
 
 #Security
-gem 'devise', '1.1.3'
-gem 'devise_invitable', :git => 'git://github.com/zhitomirskiyi/devise_invitable.git', :branch => '0.3.5'
+gem 'devise', '1.2.1'
+gem 'devise_invitable', :git => 'git://github.com/zhitomirskiyi/devise_invitable.git', :branch => 'master'
 
 #Authentication
 gem 'omniauth', '0.1.6'
