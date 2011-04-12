@@ -57,7 +57,7 @@ class Invitation < ActiveRecord::Base
     invitee.invites = opts[:invites] || 10
     if invitee.new_record?
       invitee.errors.clear
-      invitee.serialized_private_key = User.generate_key if invitee.serialized_private_key.blank?
+      invitee.serialized_private_key = User.generate_key.to_s if invitee.serialized_private_key.blank?
       invitee.send(:generate_invitation_token)
     elsif invitee.invitation_token.nil?
       return invitee
@@ -78,6 +78,8 @@ class Invitation < ActiveRecord::Base
     log_string = "event=invitation_sent to=#{opts[:identifier]} service=#{opts[:service]} "
     log_string << "inviter=#{opts[:from].diaspora_handle} inviter_uid=#{opts[:from].id} inviter_created_at_unix=#{opts[:from].created_at.to_i}" if opts[:from]
     Rails.logger.info(log_string)
+
+
     invitee
   end
 

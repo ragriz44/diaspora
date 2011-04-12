@@ -4,7 +4,6 @@
  */
 
 var AspectEdit = {
-
   initialize: function() {
     $("ul .person").draggable({
       revert: true,
@@ -54,6 +53,7 @@ var AspectEdit = {
           "accept": true,
           "aspect_id": dropzone.attr('data-aspect_id')
         },
+        beforeSend: Diaspora.widgets.ajax.setHeader,
         success: function() {
           AspectEdit.onDeleteRequestSuccess(person, dropzone);
         }
@@ -71,6 +71,7 @@ var AspectEdit = {
           "to": dropzone.attr('data-aspect_id'),
           "aspect_id": aspect_id
         },
+        beforeSend: Diaspora.widgets.ajax.setHeader,
         success: function(data) {
           AspectEdit.onMovePersonSuccess(person, dropzone);
           View.flashes.render($.parseJSON(data));
@@ -145,7 +146,8 @@ var AspectEdit = {
           "aspect": {
             "name" : $this.text()
           }
-        }
+        },
+        beforeSend: Diaspora.widgets.ajax.setHeader,
       });
     });
   },
@@ -160,6 +162,7 @@ var AspectEdit = {
         $.ajax({
           type: "DELETE",
           url: "/requests/" + request_id,
+          beforeSend: Diaspora.widgets.ajax.setHeader,
           success: function () {
             person.fadeOut(400, function() {
               person.remove();

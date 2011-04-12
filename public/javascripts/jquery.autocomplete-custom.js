@@ -333,6 +333,7 @@ $.Autocompleter = function(input, options) {
 					q: options.lastWord(term, null, options.multiple),
 					limit: options.max
 				}, extraParams),
+        beforeSend: Diaspora.widgets.ajax.setHeader,
 				success: function(data) {
 					var parsed = options.parse && options.parse(data) || parse(data);
 					cache.add(term, parsed);

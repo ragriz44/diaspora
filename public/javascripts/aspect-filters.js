@@ -122,7 +122,8 @@ $(document).ready(function(){
       $.ajax({
         url : updateURL,
         type: "PUT",
-        });
+        beforeSend: Diaspora.widgets.ajax.setHeader,
+      });
 
   }
 
@@ -133,7 +134,6 @@ $(document).ready(function(){
   function performAjax(newURL) {
     var post = $("#publisher textarea").val(),
         photos = {};
-
 
     //pass photos
     $('#photodropzone img').each(function(){
@@ -154,6 +154,7 @@ $(document).ready(function(){
     $.ajax({
       url : newURL,
       dataType : 'script',
+      beforeSend: Diaspora.widgets.ajax.setHeader,
       success  : function(data){
         requests--;
         // fill in publisher

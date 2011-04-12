@@ -35,6 +35,7 @@ class UsersController < ApplicationController
     # change passowrd
     elsif u[:current_password] && u[:password] && u[:password_confirmation]
       if @user.update_with_password(u)
+        sign_in(current_user, :bypass => true)
         flash[:notice] = I18n.t 'users.update.password_changed'
       else
         flash[:error] = I18n.t 'users.update.password_not_changed'

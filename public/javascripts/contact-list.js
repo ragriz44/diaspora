@@ -26,6 +26,7 @@ var List = {
         $.ajax({
             url: "/contacts/" + contact_id,
             type: "DELETE",
+            beforeSend: Diaspora.widgets.ajax.setHeader,
             success: function(){
                 if( $('.contact_list').length == 1){
                   $('.contact_list li[data-contact_id='+contact_id+']').fadeOut(200);

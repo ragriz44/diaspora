@@ -38,7 +38,7 @@ describe PeopleController do
                                :profile => Factory.build(:profile, :first_name => "Eugene",
                                                          :last_name => "w"))
       get :index, :q => "Eug"
-      assigns[:people].should =~ [@eugene, eugene2]
+      assigns[:people].to_set.should == [@eugene, eugene2].to_set
     end
 
     it "does not redirect to person page if there is exactly one match" do
