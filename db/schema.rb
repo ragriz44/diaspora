@@ -89,14 +89,15 @@ ActiveRecord::Schema.define(:version => 20110412230914) do
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
 
   create_table "contacts", :force => true do |t|
-    t.integer  "user_id",                            :null => false
-    t.integer  "person_id",                          :null => false
+    t.integer  "user_id",                             :null => false
+    t.integer  "person_id",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
-    t.boolean  "mutual",          :default => false, :null => false
-    t.integer  "server_token_id"
-    t.integer  "client_token_id"
+    t.boolean  "mutual",           :default => false, :null => false
+    t.integer  "client_id"
+    t.integer  "access_token_id"
+    t.integer  "refresh_token_id"
   end
 
   add_index "contacts", ["mongo_id"], :name => "index_contacts_on_mongo_id"
