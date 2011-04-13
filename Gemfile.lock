@@ -95,6 +95,7 @@ GEM
     activesupport (3.0.3)
     addressable (2.2.2)
     arel (2.0.9)
+    attr_required (0.0.3)
     aws (2.3.32)
       activesupport
       http_connection
@@ -294,6 +295,13 @@ GEM
     rack (1.2.2)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
+    rack-oauth2 (0.5.0)
+      activesupport (>= 2.3)
+      attr_required (>= 0.0.3)
+      i18n
+      json (>= 1.4.3)
+      rack (>= 1.1)
+      restclient_with_cert
     rack-openid (1.2.0)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
@@ -324,6 +332,8 @@ GEM
       vegas (~> 0.1.2)
     rest-client (1.6.1)
       mime-types (>= 1.16)
+    restclient_with_cert (0.0.3)
+      rest-client (>= 1.6)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
@@ -427,6 +437,7 @@ DEPENDENCIES
   mysql2 (= 0.2.6)
   nokogiri (= 1.4.3.1)
   omniauth (= 0.1.6)
+  rack-oauth2 (>= 0.4.5)
   rails (= 3.0.3)
   rcov
   resque (= 1.10.0)
