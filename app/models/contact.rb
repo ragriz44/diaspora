@@ -24,6 +24,11 @@ class Contact < ActiveRecord::Base
 
   def dispatch_request
     request = self.generate_request
+
+    # to create oauth token, we must save the unpersisted contact
+    self.save
+    self.create_client
+
     Postzord::Dispatch.new(self.user, request).post
     request
   end
@@ -55,7 +60,7 @@ class Contact < ActiveRecord::Base
   end
 
   def receiving?
-    self.aspect_memberships.size > 0
+    self.mutual? || self.aspect_memberships.size > 0
   end
 
   private

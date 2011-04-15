@@ -7,13 +7,20 @@ module Diaspora
     module Connecting
       def share_with(person, aspect)
         contact = self.contacts.find_or_initialize_by_person_id(person.id)
+
         unless contact.receiving?
+          # we save state here since sharing? relies on persistence, and in this
+          #  one case, we must save the contact during dispatching to create
+          #  an association
+          sharing = contact.sharing?
+
           contact.dispatch_request
 
-          if contact.sharing?
+          if sharing
             contact.mutual = true
           end
         end
+
         contact.aspects << aspect
         contact.save
 
