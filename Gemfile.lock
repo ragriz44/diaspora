@@ -51,6 +51,13 @@ GIT
     devise_invitable (0.3.5)
       devise (~> 1.1.0)
 
+GIT
+  remote: https://github.com/rspec/rspec-mocks.git
+  revision: 1b59f2fcfc854e64b6c0925e5806f35f97b796f2
+  ref: 1b59f2fcfc854e64b6c0
+  specs:
+    rspec-mocks (2.5.0)
+
 PATH
   remote: vendor/gems/jasmine
   specs:
@@ -342,7 +349,6 @@ GEM
     rspec-expectations (2.5.0)
       diff-lcs (~> 1.1.2)
     rspec-instafail (0.1.7)
-    rspec-mocks (2.5.0)
     rspec-rails (2.5.0)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
@@ -445,6 +451,7 @@ DEPENDENCIES
   roxml!
   rspec (>= 2.0.0)
   rspec-instafail (>= 0.1.7)
+  rspec-mocks!
   rspec-rails (>= 2.0.0)
   ruby-debug
   selenium-webdriver (= 0.1.3)
