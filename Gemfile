@@ -80,7 +80,6 @@ group :test do
   gem 'cucumber-rails', '0.3.2'
   gem 'rspec', '>= 2.0.0'
   gem 'rspec-rails', '>= 2.0.0'
-  gem 'rspec-mocks', :git => 'https://github.com/rspec/rspec-mocks.git', :ref =>  '1b59f2fcfc854e64b6c0'
   gem 'rcov'
   gem 'database_cleaner', '0.6.0'
   gem 'webmock', :require => false
