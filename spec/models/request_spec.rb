@@ -66,9 +66,6 @@ describe Request do
   end
 
   describe '#receive' do
-    before do
-      Request.any_instance.stub(:receive_tokens)
-    end
 
     it 'creates a contact' do
      request = Request.diaspora_initialize(:from => alice.person, :to => eve.person, :into => @aspect)
@@ -129,7 +126,9 @@ describe Request do
       @key = eve.encryption_key
       eve.stub!(:encryption_key).and_return(@key)
 
-      @challenge = [alice.person.diaspora_handle,eve.person.diaspora_handle, @time.to_i].join(";")
+      @nonce = SecureToken.generate(32)
+      SecureToken.stub(:generate).and_return(@nonce)
+      @challenge = [alice.person.diaspora_handle,eve.person.diaspora_handle, @time.to_i, @nonce].join(";")
 
       @contact = eve.contacts.create(:person => alice.person)
     end
@@ -139,7 +138,7 @@ describe Request do
     end
 
     it 'signs a challenge' do
-      @key.should_receive(:sign).with(OpenSSL::Digest::SHA256.new, @challenge)
+      @key.should_receive(:sign).with(OpenSSL::Digest::SHA256.new, @challenge).and_return("sig")
       Rack::OAuth2::Client.any_instance.stub(:access_token!).and_return(true)
       @request.stub(:save_tokens)
 
@@ -163,6 +162,14 @@ describe Request do
       eve.contact_for(alice.person).access_token.expires_at.to_i.should == (@time + 15.minutes).to_i
       eve.contact_for(alice.person).refresh_token.token.should == @json[:refresh_token]
       eve.contact_for(alice.person).refresh_token.expires_at.to_i.should == (@time + 1.month).to_i
+    end
+
+    it 'generates a nonce' do
+      SecureToken.should_receive(:generate).with(32)
+      Rack::OAuth2::Client.any_instance.stub(:access_token!).and_return(true)
+      @request.stub(:save_tokens)
+
+      @request.receive_tokens_original(@contact)
     end
   end
 
