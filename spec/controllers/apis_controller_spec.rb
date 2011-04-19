@@ -94,13 +94,13 @@ describe ApisController do
     describe '#user_timeline' do
       context 'unauthenticated' do
         it 'shows public posts' do
-          get :user_timeline, :format => :json, :user_id => @status_message1.author.guid
+          get :user_timeline, :format => :json, :screen_name => @status_message1.author.diaspora_handle
           posts = JSON.parse(response.body)
           posts.first['id'].should == @status_message1.guid
           posts.length.should == 1
         end
         it 'does not show non-public posts' do
-          get :user_timeline, :format => :json, :user_id => alice.person.guid
+          get :user_timeline, :format => :json, :screen_name => alice.diaspora_handle
           posts = JSON.parse(response.body)
           posts.should be_empty
         end
@@ -113,7 +113,7 @@ describe ApisController do
           end
 
           it 'shows alice' do
-            get :user_timeline, :format => :json, :user_id => alice.person.guid
+            get :user_timeline, :format => :json, :screen_name => alice.diaspora_handle
             p = JSON.parse(response.body)
 
             p.length.should == 1
@@ -121,7 +121,7 @@ describe ApisController do
           end
 
           it 'shows eve' do
-            get :user_timeline, :format => :json, :user_id => eve.person.guid
+            get :user_timeline, :format => :json, :screen_name => eve.diaspora_handle
             p = JSON.parse(response.body)
 
             p.length.should == 1
@@ -129,7 +129,7 @@ describe ApisController do
           end
 
           it 'shows bob' do
-            get :user_timeline, :format => :json, :user_id => bob.person.guid
+            get :user_timeline, :format => :json, :screen_name => bob.diaspora_handle
             p = JSON.parse(response.body)
             p.length.should == 0
           end
@@ -142,7 +142,7 @@ describe ApisController do
           end
 
           it 'shows alice' do
-            get :user_timeline, :format => :json, :user_id => alice.person.guid
+            get :user_timeline, :format => :json, :screen_name => alice.diaspora_handle
             p = JSON.parse(response.body)
 
             p.length.should == 1
@@ -150,7 +150,7 @@ describe ApisController do
           end
 
           it 'shows eve' do
-            get :user_timeline, :format => :json, :user_id => eve.person.guid
+            get :user_timeline, :format => :json, :screen_name => eve.diaspora_handle
             p = JSON.parse(response.body)
             p.length.should == 0
           end
@@ -186,7 +186,7 @@ describe ApisController do
 
   describe '#users' do
     it 'succeeds' do
-      get :users, :user_id => alice.person.guid, :format => :json
+      get :users, :screen_name => alice.diaspora_handle, :format => :json
       p = JSON.parse(response.body)
       p['id'].should == alice.person.guid
       p['name'].should == alice.person.name
